@@ -21,9 +21,9 @@ class LinkedList:
     def reverse(self):
         if self.isEmpty():
             return "Empty"
-        cur = self.tail
-        s = str(self.tail.value) + " "
+        cur,s = self.tail, str(self.tail.value) + " "
         while cur.previous != None:
+            #print('test '+str(cur.value))
             s += str(cur.previous.value) + " "
             cur = cur.previous
         return s
@@ -73,7 +73,7 @@ class LinkedList:
             if pos<0:
                 self.addHead(item)
                 return
-        elif pos==self.size():
+        elif pos==self.size() or self.isEmpty() or pos>=self.size():
             self.append(item)
             return
 
@@ -84,13 +84,18 @@ class LinkedList:
         itr = self.head
         while itr:
             if count == pos-1:
+                itr.next.previous = newnode
                 newnode.next = itr.next
                 newnode.previous = itr
                 itr.next = newnode
+
                 break
 
             itr = itr.next
             count +=1
+    
+
+
 
     def search(self, item):
         itr = self.head
@@ -126,7 +131,7 @@ class LinkedList:
     def pop(self, pos):
         if pos<0 or self.size()<=pos:
             #print('Out of range')
-            return 'Out of range'
+            return 'Out of Range'
 
         # elif pos==0 and self.size()!=0:
         #     self.head = self.head.next
