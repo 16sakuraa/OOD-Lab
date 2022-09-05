@@ -68,7 +68,7 @@ class LinkedList:
         if pos==0:
             self.addHead(item)
             return
-        if pos<0:
+        elif pos<0:
             pos = self.size()+pos
             if pos<0:
                 self.addHead(item)
@@ -198,4 +198,3 @@ for i in inp:
 print("Linked List :", L)
 print("Linked List Reverse :", L.reverse())
 
-#L.print()
