@@ -37,7 +37,7 @@ class LinkedList:
         newnode.next = None
 
         if self.head is None:
-          #  self.head.previous = None
+            #self.head.previous = None
             self.head = newnode
             self.tail = newnode
             return
@@ -94,6 +94,21 @@ class LinkedList:
             itr = itr.next
             count +=1
     
+    def removeAt(self,index):
+        if index==0:
+            self.head = self.head.next
+        elif index==self.size():
+            self.pop()
+
+
+        count=0
+        itr = self.head
+        while itr:
+            if count == index-1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+            count+=1
 
 
 
@@ -101,11 +116,11 @@ class LinkedList:
         itr = self.head
         while itr:
             if itr.value == item:
-                #print('Found')
-                return 'Found'
+                print('Found')
+                return 
             itr = itr.next
-        #print('Not Found')
-        return 'Not Found'
+        print('Not Found')
+        return
 
 
 
@@ -129,23 +144,26 @@ class LinkedList:
         return size
 
     def pop(self, pos):
-        if pos<0 or self.size()<=pos:
-            #print('Out of range')
-            return 'Out of Range'
+        if pos<0 or self.size()<pos:
+            #print('Out of Range')
+            return
 
-        # elif pos==0 and self.size()!=0:
-        #     self.head = self.head.next
-        #     print('Out of range')
-        
         count=0
         itr = self.head
+        if pos==self.size():
+            while itr.next.next is not None:
+                itr=itr.next
+            itr.next = None
+            return
         while itr:
             if pos==0:
                 self.head = self.head.next
-                return 'Success'
+                #print('Success')
+                return
             elif count == pos-1:
                 itr.next = itr.next.next
-                return 'Success'
+                #print('Success')
+                return
             itr = itr.next
             count+=1
     
@@ -162,7 +180,7 @@ class LinkedList:
             if itr.next is None:
                 liststr += str(itr.value)
             else:
-                liststr += str(itr.value) + ' <- '
+                liststr += str(itr.value) + ' '
             itr = itr.next
             
         print(liststr)
@@ -171,9 +189,27 @@ L = LinkedList()
 
 inputString = [e for e in input('Enter Input : ').split(',')]
 
+cursorPos = 0
 for x in inputString:
     if x[0] == 'I':
         a,b = x.split()
-        L.append(b)
+        L.insert(cursorPos,b)
+        cursorPos+=1
+    elif x[0] == 'L':
+        if cursorPos>0:
+            cursorPos-=1
+    elif x[0] == 'R':
+        if cursorPos<L.size():
+            cursorPos+=1
+    elif x[0] == 'B':
+        if cursorPos>0:
+            L.pop(cursorPos-1)
+            cursorPos-=1
+    elif x[0] == 'D':
+        if cursorPos==0:
+            L.pop(0)
+        elif cursorPos<L.size():
+            L.pop(cursorPos+1)
 
+L.insert(cursorPos,'|')
 L.print()
