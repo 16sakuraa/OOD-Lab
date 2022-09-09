@@ -4,7 +4,7 @@ class node:
         self.next = next
 
 def createList(List=[]):
-    L = [e for e in List.split()]
+    L = [e for e in List.split(',')]
     newnode = node(int(L[0]))
     head = newnode
     for i in range(0,len(L)-1):
@@ -47,7 +47,7 @@ def mergeOrderesList(p,q):
 #################### FIX comand ####################   
 # input only a number save in L1,L2
 
-L1,L2 = [e for e in input('Enter Input : ').split(',')]
+L1,L2 = [e for e in input('Enter 2 Lists : ').split()]
 
 LL1 = createList(L1)
 LL2 = createList(L2)
