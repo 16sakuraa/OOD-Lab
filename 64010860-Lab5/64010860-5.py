@@ -179,35 +179,107 @@ class LinkedList:
         
         print(maxNum)
         return maxNum
-
-
-
-def countingSort(arr, exp1):
- 
-    n = arr.size()
-    output = LinkedList()
-
-    for i in range(n):
-        output.append(0)
-
-    itr = arr.head
-    while itr:
-        positionDigit = itr.value%10
-        print(positionDigit)
-        output.insert(positionDigit,itr.value)
-        itr = itr.next
     
-    output.print()
+    def removeAt(self,index):
+        if index==0:
+            self.head = self.head.next
+        
+        count=0
+        itr = self.head
+        while itr:
+            if count == index-1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+            count+=1
 
-def radixsort(arr):
+    def radixsort(self):
+        box = []
+        for i in range(10):
+            box.append(LinkedList(0))
+        print("------------------------------------------------------------")
+        stop = False
+        counter = 0
+        for i in range(self.max_length+1):
+            print("Round : " + str(i+1))
+            while not self.isEmpty():
+                temp = self.removeAt(0)[::-1]
+                try:
+                    box[int(temp[i])].addHead(temp[::-1])   
+                    print(temp[i],end=' from ')
+                    print(temp[::-1])
+                except:
+                    box[0].addHead(temp[::-1])
+            if box[0].size() == self.max:
+                stop = True
+            for j in range(10):
+                box[j].sort()
+                print(str(j) + ' : ' + box[j].print())
+                while not box[j].isEmpty():
+                    temp = box[j].addHead()
+                    self.append(temp)
+            print("------------------------------------------------------------")
+            counter += 1
+            if stop:
+                break
+        self.max_length = counter
 
-    maxNum = arr.findmax()
 
-    divide = 1
-    countingSort(arr, divide)
-    # while maxNum / divide >= 1:
-    #     countingSort(arr, divide)
-    #     divide *= 10
+
+# def countingSort(arr, exp1):
+ 
+#     n = arr.size()
+#     # output = []
+#     # count = []
+
+#     # for i in range(n):
+#     #     output.append(0)
+    
+#     # for j in range(10):
+#     #     count.append(0)
+
+#     output = [0] * (n)
+#     count = [0] * (10)
+
+#     itr = arr.head
+#     while itr:
+#         index = int(itr.value)//exp1
+#         count[index%10] +=1
+#         itr = itr.next
+    
+#     for k in range(1,10):
+#         count[k] += count[k-1]
+
+#     itr = arr.head
+#     i = n - 1
+#     while i>=0:
+#         index = int(itr.value)//exp1
+#         output[count[index%10]-1] = int(itr.value)
+#         count[index%10]-=1
+#         i-=1
+#         itr = itr.next
+
+
+#     LLoutput = LinkedList()
+#     for element in output:
+#         LLoutput.append(int(element))
+    
+#     arr = LLoutput
+#     arr.print()
+#     return arr
+        
+
+# def radixsort(arr):
+
+#     maxNum = arr.findmax()
+
+#     divide = 1
+#     while maxNum / divide >= 1:
+#         countingSort(arr, divide)
+#         divide *= 10
+    
+
+
     
 L =LinkedList()
 inputNum = [e for e in input('Enter Input : ').split()]
@@ -215,6 +287,6 @@ for i in inputNum:
     L.append(int(i))
 
 #L.findmax()
-radixsort(L)
+L.radixsort()
 
 
