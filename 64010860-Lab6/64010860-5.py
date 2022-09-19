@@ -21,9 +21,9 @@ def asteroid_collision(asts,index):
 
         elif asts[index]<0 and index>0: # current asteroid go left
 
-            if abs(asts[index])>abs(asts[index-1]) and asts[index+1]>0:
+            if abs(asts[index])>abs(asts[index-1]) and asts[index-1]>0:
                 del asts[index-1]
-                return asteroid_collision(asts,index)
+                return asteroid_collision(asts,index-1)
 
             elif abs(asts[index])<abs(asts[index-1]) and asts[index-1]>0:
                 del asts[index]
