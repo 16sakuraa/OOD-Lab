@@ -6,4 +6,7 @@ Lab2 - Python 2\
 Lab3 - Stack\
 Lab4 - Queue\
 Lab5 - Linked List\
-Lab6 - Recursion
+Lab6 - Recursion\
+Lab7 - Binary Search Tree
+
+
