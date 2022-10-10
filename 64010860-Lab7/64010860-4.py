@@ -33,33 +33,44 @@ class BinarySearchTree:
 
 
     def delete(self,r, data):
+
         if r is None:
             print('Error! Not Found DATA')
             return r
-        
-        if data < r.data:
-            r.left = self.delete(r.left,data)
-        
-        elif data > r.data:
-            r.right =self.delete(r.right,data)
-
         else:
-            if r.left is None:
-                temp = r.right
-                r = None
-                return temp
-            elif r.right is None:
-                temp = r.left
-                r = None
-                return temp
-            
+            if data < r.data:
+                r.left = self.delete(r.left,data)
+                return r
+        
+            elif data > r.data:
+                r.right =self.delete(r.right,data)
+                return r
 
-        temp = minValueNode(r.right)
+            elif data == r.data:
+                
+                # if r.left is None and r.right is None:
+                #     print('hello1')
+                #     r = None
+                #     return r
+                if r.left is None:
+                    #print('hello')
+                    temp = r.right
+                    r = None
+                    return temp
+                elif r.right is None:
+                    temp = r.left
+                    r = None
+                    return temp
 
-        r.data = temp.data
-        r.right = self.delete(r.right,temp.data)
+                    
+        
 
-        return r
+                temp = minValueNode(r.right)
+
+                r.data = temp.data
+                r.right = self.delete(r.right,temp.data)
+
+                return r
 
 def printTree90(node, level = 0):
     if node != None:
