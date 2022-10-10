@@ -11,10 +11,12 @@ class Node:
 class BinarySearchTree:
     def __init__(self): 
         self.root = None
+        self.size = 0
 
     def insert(self, data):  
         if self.root is None:
             self.root = Node(data)
+            self.size+=1
         else:
             self._insert(data,self.root)
         return self.root
@@ -23,11 +25,13 @@ class BinarySearchTree:
         if data<currentNode.data:
             if currentNode.left==None:
                 currentNode.left = Node(data)
+                self.size+=1
             else:
                 self._insert(data,currentNode.left)
         elif data>currentNode.data:
             if currentNode.right==None:
                 currentNode.right = Node(data)
+                self.size+=1
             else:
                 self._insert(data,currentNode.right)
 
@@ -48,12 +52,10 @@ class BinarySearchTree:
 
             elif data == r.data:
                 
-                # if r.left is None and r.right is None:
-                #     print('hello1')
-                #     r = None
-                #     return r
-                if r.left is None:
-                    #print('hello')
+                if self.size == 1:
+                    self.root = None
+                    return 
+                elif r.left is None:
                     temp = r.right
                     r = None
                     return temp
@@ -62,15 +64,13 @@ class BinarySearchTree:
                     r = None
                     return temp
 
-                    
-        
-
+                #for node with left and riht
                 temp = minValueNode(r.right)
-
                 r.data = temp.data
                 r.right = self.delete(r.right,temp.data)
+                self.size-=1
 
-                return r
+            return r
 
 def printTree90(node, level = 0):
     if node != None:
@@ -80,6 +80,8 @@ def printTree90(node, level = 0):
 
 def minValueNode(node):
     current = node
+    if current is None:
+        return None
   
     # loop down to find the leftmost leaf
     while(current.left is not None):
@@ -90,14 +92,17 @@ def minValueNode(node):
 
 tree = BinarySearchTree()
 data = input("Enter Input : ").split(",")
-
+root = None
 for x in data:
     action,num = x.split()
     if action[0] == 'i':
         print('insert '+num)
-        tree.insert(num)
-        printTree90(tree.root)
+        root = tree.insert(int(num))
+        printTree90(root)
     elif action[0] == 'd':
         print('delete '+num)
-        tree.delete(tree.root,num)
-        printTree90(tree.root)
+        if root is None:
+            print('Error! Not Found DATA')
+        else:
+            root = tree.delete(root,int(num))
+            printTree90(root)
