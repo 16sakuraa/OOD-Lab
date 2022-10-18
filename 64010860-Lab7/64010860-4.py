@@ -52,10 +52,10 @@ class BinarySearchTree:
 
             elif data == r.data:
                 
-                if self.size == 1:
-                    self.root = None
-                    return 
-                elif r.left is None:
+                # if self.size == 1:
+                #     self.root = None
+                #     return 
+                if r.left is None:
                     temp = r.right
                     r = None
                     return temp
