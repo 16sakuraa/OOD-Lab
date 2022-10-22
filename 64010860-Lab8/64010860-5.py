@@ -1,3 +1,4 @@
+
 class Node:
 
     def __init__(self, data): 
@@ -157,15 +158,56 @@ def printTree90(node, level = 0):
         printTree90(node.left, level + 1)
 
 
-def check_binary_search_tree_(node, mini, maxi):
- 
+def check_binary_search_tree_(node, min, max):
+
+    global leftNode
+    global rootData
+    global count
+
+    count+=1
     if node is None:
         return True
- 
-    if node.data > mini or node.data < maxi:
-        return False
     
+    if node.data > min or node.data < max:
+        return False
+
+    if count <= int(leftNode):
+        if node.data > rootData:
+            return False
+    elif count > leftNode:
+        if node.data < rootData:
+            return False
+
     return (check_binary_search_tree_(node.left, node.data, 0) and check_binary_search_tree_(node.right, 100, node.data))
+
+def left_height(node):
+    ht = 0
+    while(node):
+        ht += 1
+        node = node.left
+        
+    return ht
+  
+def right_height(node):
+    ht = 0
+    while(node):
+        ht += 1
+        node = node.right
+
+    return ht
+  
+def TotalNodes(root):
+    
+    if(root == None):
+        return 0
+        
+    lh = left_height(root)
+    rh = right_height(root)
+      
+    if(lh == rh):
+        return (1 << lh) - 1
+        
+    return 1 + TotalNodes(root.left) + TotalNodes(root.right)
 
 
 tree = Tree()
@@ -177,5 +219,7 @@ for e in data:
     tree.insert(int(e))
 
 printTree90(tree.root)
-
+leftNode = TotalNodes(tree.root.left)
+rootData = tree.root.data
+count = -1
 print(check_binary_search_tree_(tree.root,100,0))
