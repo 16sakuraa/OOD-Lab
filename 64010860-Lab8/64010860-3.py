@@ -82,8 +82,45 @@ def TotalNodes(root):
         
     return 1 + TotalNodes(root.left) + TotalNodes(root.right)
     # 7 4 3 1 2 6 9 12 5 11/10
-        
 
+
+def closestValue(root,value):
+    current = root
+    closest = root.data
+    while current is not None:
+        if current.data == value:
+            return value
+
+        if abs(value - closest) > abs(value - current.data):
+            if current.data > 0 and closest > 0:
+                closest = current.data
+            elif current.data < 0 and closest < 0 and current.data>closest:
+                closest = current.data
+            elif current.data < 0 and closest > 0:
+                closest = current.data
+
+        if value < int(current.data):
+            current = current.left
+        elif value > int(current.data):
+            current = current.right
+        else:
+            break
+    
+    return closest
+
+def minValueNode(node):
+    current = node
+    if current is None:
+        return None
+  
+    # loop down to find the leftmost leaf
+    while(current.left is not None):
+        current = current.left
+  
+    return current
+
+    
+    
 
 
 T = BST()
@@ -95,3 +132,4 @@ T.printTree(root)
 print('--------------------------------------------------')
 total = TotalNodes(root.left)
 getRank(root,int(num),total+1)
+# inOrder(root)
