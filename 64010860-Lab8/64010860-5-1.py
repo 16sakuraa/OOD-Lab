@@ -67,7 +67,7 @@ class Tree:
 
             else:
 
-                print(max_node-((max_node-(pow(2,h)-1))/2))
+                # print(max_node-((max_node-(pow(2,h)-1))/2))
 
                 if self.num+1 <= max_node-((max_node-(pow(2,h)-1))/2):
 
@@ -160,61 +160,16 @@ def printTree90(node, level = 0):
 
 def check_binary_search_tree_(node, min, max):
 
-    global leftNode
-    global rootData
-    global count
- 
-
     if node is None:
         return True
-    count+=1
 
-    if node.data >= min or node.data <= max:
+    if node.data < min or node.data > max:
         return False
 
-    if count <= int(leftNode) and count!=0:
-        if node.data >= rootData:
-
-            return False
-    elif count > leftNode:
-        if node.data <= rootData:
-            return False
-
-    return (check_binary_search_tree_(node.left, node.data, 0) and check_binary_search_tree_(node.right, 100, node.data))
-
-def left_height(node):
-    ht = 0
-    while(node):
-        ht += 1
-        node = node.left
-        
-    return ht
-  
-def right_height(node):
-    ht = 0
-    while(node):
-        ht += 1
-        node = node.right
-
-    return ht
-  
-def TotalNodes(root):
-    
-    if(root == None):
-        return 0
-        
-    lh = left_height(root)
-    rh = right_height(root)
-      
-    if(lh == rh):
-        return (1 << lh) - 1
-        
-    return 1 + TotalNodes(root.left) + TotalNodes(root.right)
-
+    return (check_binary_search_tree_(node.left, min, node.data-1) and check_binary_search_tree_(node.right, node.data+1, max))
 
 
 tree = Tree()
-
 data = input("Enter Input : ").split()
 
 for e in data:
@@ -223,9 +178,6 @@ for e in data:
 
 printTree90(tree.root)
 if tree.root is not None:
-    leftNode = TotalNodes(tree.root.left)
-    rootData = tree.root.data
-    count = -1
-    print(check_binary_search_tree_(tree.root,100,0))
+    print(check_binary_search_tree_(tree.root,0,100))
 else:
     print('False')
