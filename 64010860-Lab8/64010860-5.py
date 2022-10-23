@@ -163,11 +163,12 @@ def check_binary_search_tree_(node, min, max):
     global leftNode
     global rootData
     global count
+ 
 
-    count+=1
     if node is None:
         return True
-    
+    count+=1
+
     if node.data > min or node.data < max:
         return False
 
@@ -219,7 +220,10 @@ for e in data:
     tree.insert(int(e))
 
 printTree90(tree.root)
-leftNode = TotalNodes(tree.root.left)
-rootData = tree.root.data
-count = -1
-print(check_binary_search_tree_(tree.root,100,0))
+if tree.root is not None:
+    leftNode = TotalNodes(tree.root.left)
+    rootData = tree.root.data
+    count = -1
+    print(check_binary_search_tree_(tree.root,100,0))
+else:
+    print('False')
