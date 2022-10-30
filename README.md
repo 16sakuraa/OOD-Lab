@@ -7,6 +7,7 @@ Lab 3 - Stack\
 Lab 4 - Queue\
 Lab 5 - Linked List\
 Lab 6 - Recursion\
-Lab 7 - Binary Search Tree
-
+Lab 7 - Binary Search Tree\
+Lab 8 - AVL\
+Lab 9 - Sorting
 
