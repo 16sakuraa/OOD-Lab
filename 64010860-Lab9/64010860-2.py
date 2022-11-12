@@ -32,6 +32,8 @@ def straightselectsort(num,left,right):
         return straightselectsort(num,left+1,0)
 
 
+
+
 num = [int(e) for e in input('Enter Input : ').split()]
 print(straightselectsort(num,0,0))
 

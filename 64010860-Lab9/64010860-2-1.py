@@ -8,40 +8,31 @@ def isitsort(num,i):
     else:
         return isitsort(num,i+1)
 
-def findMin(A, n):
-     
-
-    if (n == 1):
-        return A[0]
-    return min(A[n - 1], findMin(A, n - 1))
-
-def findMax(A, n):
- 
-    if (n == 1):
-        return A[0]
-    return max(A[n - 1], findMax(A, n - 1))
+def findMax(num,i,maxIndex,maxNumber):
+    if i>maxIndex:
+        return maxNumber
+    else:
+        if num[i]>maxNumber:
+            maxNumber = num[i]
+        return findMax(num,i+1,maxIndex,maxNumber)
 
 
-def straightselectsort(num,left,right):
-    maxIndex = len(num)-1
+def straightselectsort(num,maxIndex):
     if isitsort(num,0):
         return num
     else:
-        indexMax = index(findMax(num,))
-
-        print('swap '+str(num[maxIndex-right])+' <-> '+str(num[left])+' : ',end='')
-        dummy = num[maxIndex-right]
-        num[maxIndex-right]=num[left]
-        num[left]= dummy
-        print(num)
-
-
-    if right<maxIndex:
-        return straightselectsort(num,left,right+1)
-    elif right==maxIndex:
-        return straightselectsort(num,left+1,0)
+        bigNum = findMax(num,0,maxIndex,-1)
+        if bigNum==num[maxIndex]:
+            return straightselectsort(num,maxIndex-1)
+        else:
+            index = num.index(bigNum)
+            # swap 2 <-> 5 : [2, 4, 3, 1, 5]
+            print('swap '+str(num[maxIndex])+' <-> '+str(num[index])+' : ',end='')
+            num[index],num[maxIndex] = num[maxIndex],num[index]
+            print(num)
+            return straightselectsort(num,maxIndex-1)
 
 
 num = [int(e) for e in input('Enter Input : ').split()]
-print(straightselectsort(num,0,0))
-
+maxIndex = len(num)-1
+print(straightselectsort(num,maxIndex))
