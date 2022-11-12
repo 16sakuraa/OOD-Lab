@@ -9,5 +9,6 @@ Lab 5 - Linked List\
 Lab 6 - Recursion\
 Lab 7 - Binary Search Tree\
 Lab 8 - AVL\
-Lab 9 - Sorting
+Lab 9 - Sorting\
+Lab 10 - Searching
 
