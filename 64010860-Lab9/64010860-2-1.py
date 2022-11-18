@@ -16,7 +16,6 @@ def findMax(num,i,maxIndex,maxNumber):
             maxNumber = num[i]
         return findMax(num,i+1,maxIndex,maxNumber)
 
-
 def straightselectsort(num,maxIndex):
     if isitsort(num,0):
         return num
